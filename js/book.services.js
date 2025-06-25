@@ -15,9 +15,13 @@ function removeBook(bookId) {
 }
 
 function updateBookPrice(bookId, newPrice) {
-  const book = gBooks.find((book) => book.id === bookId);
+  const book = getBookById(bookId)
   book.price = newPrice;
 }
 function getBookById(bookId) {
   return gBooks.find((book) => book.id === bookId);
 }
+function addBook(book){
+    gBooks.unshift(book)
+}
+

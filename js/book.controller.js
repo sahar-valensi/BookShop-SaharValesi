@@ -46,3 +46,16 @@ function onShowDetails(bookId) {
 
   //   renderBooks();
 }
+
+function onAddBook() {
+  const title = prompt("Give me the name of the book:");
+  const price = +prompt("Give me the price of the book:");
+  const book = {
+    id: makeId(),
+    title,
+    price,
+  };
+  addBook(book);
+//   console.log(gBooks)
+ renderBooks()
+}
