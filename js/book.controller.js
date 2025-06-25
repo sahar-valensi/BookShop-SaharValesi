@@ -2,10 +2,10 @@
 // console.log('hello controller')
 
 function onInit() {
-  rederBooks();
+  renderBooks();
 }
 
-function rederBooks() {
+function renderBooks() {
   const books = getBooks();
   const elTbody = document.querySelector(".book-table-body");
   var strHtmls = books.map(
@@ -26,5 +26,12 @@ function rederBooks() {
 
 function onRemoveBook(bookId) {
   removeBook(bookId);
-  rederBooks();
+  renderBooks();
 }
+function onUpdateBook(bookId) {
+  const newPrice = +prompt("Enter a new price:");
+  if (!newPrice || newPrice <= 0) return alert("Invalid Price");
+  updateBookPrice(bookId, newPrice);
+  renderBooks();
+}
+
