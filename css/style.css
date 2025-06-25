@@ -3,16 +3,40 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   font-family: sans-serif;
-  margin: 2rem;
-  background-color: #ccb389;
+  margin: 0;
+  background-color: #17379d;
   text-align: center;
+  height: 100vh;
+}
+header {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 15vh;
+
+  background-color: #659aa0;
+  padding: 1rem;
+  margin-block-end: 2rem;
+  border-radius: 10px;
+}
+h1 {
+  font-size: 1.5rem;
 }
 
 table {
+  flex-grow: 1;
+
   width: 100%;
+  margin-block-end: 1rem;
   background-color: #a8dbb2;
   border: 1px solid black;
+  border-radius: 5px;
 }
 
 th,
@@ -20,10 +44,32 @@ td {
   border: 1px solid black;
   padding: 0;
   margin: 0;
+  /* border-radius: 5%; */
 }
 .action-btn {
-    
-    padding: 4px 8px;
-    margin: 0 2px;
-    cursor: pointer;
+  border-radius: 10%;
+  padding: 4px 8px;
+  margin: 0 2px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.details-btn {
+  background-color: #7b80e7;
+}
+.delete-btn {
+  background-color: #e0bb7a;
+}
+.update-btn {
+  background-color: #d5d365;
+}
+.add-btn {
+  background-color: #e45a5a;
+  font-size: 1rem;
+  border-radius: 10%;
+  margin: 1rem;
+  cursor: pointer;
+}
+footer {
+  background-color: #659aa0;
+  height: 10vh;
 }

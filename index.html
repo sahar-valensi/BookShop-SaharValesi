@@ -7,7 +7,10 @@
     <title>Ex-BookShop</title>
   </head>
   <body onload="onInit()">
-    <h1 class="welcome">Welcome To My Book Shop</h1>
+    <header>
+      <h1 class="welcome">Welcome To My Book Shop</h1>
+      <button class="add-btn" onclick="onAddBook()">Add a book</button>
+    </header>
 
     <table>
       <thead>
@@ -21,9 +24,6 @@
         <!-- render is here -->
       </tbody>
     </table>
-    <button onclick="onAddBook()">Add a book</button>
-
-
 
     <dialog class="book-details-modal">
       <form method="dialog">
@@ -32,7 +32,7 @@
         <pre class="book-details"></pre>
       </form>
     </dialog>
-
+    <footer>Sahar Valensi CoffeeRights 2025</footer>
     <script src="js/util.service.js"></script>
     <script src="js/book.services.js"></script>
     <script src="js/book.controller.js"></script>
