@@ -14,12 +14,17 @@ function rederBooks() {
             <td>${book.title}</td>
             <td>${book.price}</td>
             <td>
-                <button class="action-btn">Details</button>
-                <button class="action-btn">Update</button>
-                <button class="action-btn">Delete</button>
+                <button class="action-btn" onclick="onShowDetails('${book.id}')">Details</button>
+                <button class="action-btn" onclick="onUpdateBook('${book.id}')">Update</button>
+                <button class="action-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
             </td>
         </tr>
     `
   );
-  elTbody.innerHTML = strHtmls.join('')
+  elTbody.innerHTML = strHtmls.join("");
+}
+
+function onRemoveBook(bookId) {
+  removeBook(bookId);
+  rederBooks();
 }
