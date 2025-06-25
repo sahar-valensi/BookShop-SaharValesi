@@ -15,8 +15,15 @@ table {
   border: 1px solid black;
 }
 
-th {
+th,
+td {
   border: 1px solid black;
   padding: 0;
   margin: 0;
+}
+.action-btn {
+    
+    padding: 4px 8px;
+    margin: 0 2px;
+    cursor: pointer;
 }
