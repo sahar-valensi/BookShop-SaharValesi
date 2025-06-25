@@ -1,3 +1,22 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 2rem;
+  background-color: #ccb389;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  background-color: #a8dbb2;
+  border: 1px solid black;
+}
+
+th {
+  border: 1px solid black;
+  padding: 0;
+  margin: 0;
 }
