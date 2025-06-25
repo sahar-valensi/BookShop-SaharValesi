@@ -34,4 +34,15 @@ function onUpdateBook(bookId) {
   updateBookPrice(bookId, newPrice);
   renderBooks();
 }
+function onShowDetails(bookId) {
+  const book = getBookById(bookId);
+  const elModal = document.querySelector(".book-details-modal");
+  const elDetails = document.querySelector(".book-details");
+  elDetails.innerText = `ID: ${book.id}
+    Title: ${book.title}
+     Price: ${book.price} `;
 
+  elModal.showModal();
+
+  //   renderBooks();
+}

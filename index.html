@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Ex-BookShop</title>
-</head>
-<body onload="onInit()">
+  </head>
+  <body onload="onInit()">
     <h1 class="welcome">Welcome To My Book Shop</h1>
-    
+
     <table>
-        <thead >
-            <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody class="book-table-body">
-            <!-- render is here -->
-        </tbody>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody class="book-table-body">
+        <!-- render is here -->
+      </tbody>
     </table>
-
-    
-
+    <dialog class="book-details-modal">
+      <form method="dialog">
+        <button>x</button>
+        <h2>Book Details</h2>
+        <pre class="book-details"></pre>
+      </form>
+    </dialog>
 
     <script src="js/book.services.js"></script>
     <script src="js/book.controller.js"></script>
-</body>
+  </body>
 </html>
