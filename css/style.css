@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
   box-sizing: border-box;
 }
@@ -125,3 +126,119 @@ footer .stats p {
   margin: 0;
   font-weight: bold;
 }
+=======
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  font-family: sans-serif;
+  margin: 0;
+  background-color: #17379d;
+  text-align: center;
+  height: 100vh;
+}
+header {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 15vh;
+
+  background-color: #659aa0;
+  padding: 1rem;
+  margin-block-end: 2rem;
+  border-radius: 10px;
+}
+h1 {
+  font-size: 1.5rem;
+}
+
+.filter-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-inline: auto;
+}
+
+.filter-wrapper input {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.clear-btn{
+    background-color: #e45a5a;
+  font-size: 1rem;
+  border-radius: 10%;
+  margin: 1rem;
+  cursor: pointer;
+}
+table {
+  flex-grow: 1;
+
+  width: 100%;
+  margin-block-end: 1rem;
+  background-color: #a8dbb2;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+th,
+td {
+  border: 1px solid black;
+  padding: 0;
+  margin: 0;
+  /* border-radius: 5%; */
+}
+.action-btn {
+  border-radius: 10%;
+  padding: 4px 8px;
+  margin: 0 2px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.details-btn {
+  background-color: #7b80e7;
+}
+
+.delete-btn {
+  background-color: #e0bb7a;
+}
+
+.update-btn {
+  background-color: #d5d365;
+}
+
+.add-btn {
+  background-color: #e45a5a;
+  font-size: 1rem;
+  border-radius: 10%;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.user-msg {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  z-index: 1000;
+}
+
+.user-msg.hidden {
+  display: none;
+}
+
+footer {
+  background-color: #659aa0;
+  height: 10vh;
+}
+>>>>>>> 9e08b9e3a6fa6d1d16a4052c4802182ae15e254f
