@@ -29,6 +29,24 @@ h1 {
   font-size: 1.5rem;
 }
 
+.filter-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-inline: auto;
+}
+
+.filter-wrapper input {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.clear-btn{
+    background-color: #e45a5a;
+  font-size: 1rem;
+  border-radius: 10%;
+  margin: 1rem;
+  cursor: pointer;
+}
 table {
   flex-grow: 1;
 
@@ -53,15 +71,19 @@ td {
   font-size: 1rem;
   cursor: pointer;
 }
+
 .details-btn {
   background-color: #7b80e7;
 }
+
 .delete-btn {
   background-color: #e0bb7a;
 }
+
 .update-btn {
   background-color: #d5d365;
 }
+
 .add-btn {
   background-color: #e45a5a;
   font-size: 1rem;
@@ -69,6 +91,23 @@ td {
   margin: 1rem;
   cursor: pointer;
 }
+
+.user-msg {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  z-index: 1000;
+}
+
+.user-msg.hidden {
+  display: none;
+}
+
 footer {
   background-color: #659aa0;
   height: 10vh;
