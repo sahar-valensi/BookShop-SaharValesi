@@ -126,3 +126,34 @@ function updateStats() {
   document.querySelector(".avg-count").innerText = avg;
   document.querySelector(".exp-count").innerText = exp;
 }
+function onOpenAddModal() {
+  document.querySelector(".add-book-modal").showModal();
+}
+function onCloseAddModal() {
+  document.querySelector('.add-book-modal').close();
+}
+
+function onSubmitAddBook(ev) {
+  ev.preventDefault();
+
+  const elModal = document.querySelector(".add-book-modal");
+  const title = elModal.querySelector('input[name="title"]').value.trim();
+  const priceStr = elModal.querySelector('input[name="price"]').value;
+  const price = +priceStr;
+
+  if (!title || !priceStr || isNaN(price) || price <= 0) {
+    alert("Please enter a valid title and price.");
+    return;
+  }
+
+  const book = {
+    id: makeId(),
+    title,
+    price,
+  };
+
+  addBook(book);
+  showUserMsg("Book added!");
+  renderBooks();
+  elModal.close();
+}

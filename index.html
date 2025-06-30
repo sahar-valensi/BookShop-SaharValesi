@@ -17,7 +17,13 @@
         />
         <button class="clear-btn" onclick="onClearFilter()">Clear</button>
       </div>
-      <button class="add-btn" onclick="onAddBook()">Add a book</button>
+
+      <div class="btn-group">
+        <button class="add-btn" onclick="onAddBook()">Add a book</button>
+        <button class="add-btn" onclick="onOpenAddModal()">
+          Add book by modal
+        </button>
+      </div>
     </header>
 
     <table>
@@ -39,6 +45,24 @@
         <button>x</button>
         <h2>Book Details</h2>
         <pre class="book-details"></pre>
+      </form>
+    </dialog>
+
+    <dialog class="add-book-modal">
+      <form method="dialog" onsubmit="onSubmitAddBook(event)">
+        <h2>Add New Book</h2>
+        <input type="text" name="title" placeholder="Book Title" required />
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          min="1"
+          required
+        />
+        <div class="modal-actions">
+          <button type="submit">Save</button>
+          <button type="button" onclick="onCloseAddModal()">Cancel</button>
+        </div>
       </form>
     </dialog>
 
