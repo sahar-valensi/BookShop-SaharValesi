@@ -1,5 +1,8 @@
 "use strict";
 // console.log('hello controller')
+var gCurrEditBookId = null;
+var gCurrEditRating = 0;
+var gEditMode = false;
 
 function onInit() {
   renderBooks();
@@ -44,10 +47,18 @@ function onRemoveBook(bookId) {
 }
 
 function onUpdateBook(bookId) {
-  const newPrice = +prompt("Enter a new price:");
-  if (!newPrice || newPrice <= 0) return alert("Invalid Price");
-  updateBookPrice(bookId, newPrice);
-  showUserMsg("Book price updated!");
+  const book = getBookById(bookId);
+  gEditMode = true;
+  gCurrEditBookId = bookId;
+  gCurrEditRating = book.rating;
+
+  const elModal = document.querySelector('.book-edit-modal');
+  elModal.querySelector('.modal-title').innerText = 'Edit Book';
+  elModal.querySelector('input[name="title"]').value = book.title;
+  elModal.querySelector('input[name="price"]').value = book.price;
+  elModal.querySelector('.edit-rating-display').innerText = gCurrEditRating;
+
+  elModal.showModal();
   renderBooks();
 }
 
@@ -64,30 +75,21 @@ function onShowDetails(bookId) {
 }
 
 function onAddBook() {
-  const title = prompt("Give me the name of the book:");
-  const priceStr = prompt("Give me the price of the book:");
+  gEditMode = false;
+  gCurrEditBookId = null;
+  gCurrEditRating = 0;
 
-  if (!title || !title.trim()) {
-    alert("Book title cannot be empty.");
-    return;
-  }
+  const elModal = document.querySelector('.book-edit-modal');
+  elModal.querySelector('.modal-title').innerText = 'Add New Book';
+  elModal.querySelector('input[name="title"]').value = '';
+  elModal.querySelector('input[name="price"]').value = '';
+  elModal.querySelector('.edit-rating-display').innerText = gCurrEditRating;
 
-  const price = +priceStr;
-  if (!priceStr || isNaN(price) || price <= 0) {
-    alert("Invalid price.");
-    return;
-  }
-
-  const book = {
-    id: makeId(),
-    title: title.trim(),
-    price,
-  };
-
-  addBook(book);
-  showUserMsg("Book added!");
+  elModal.showModal();
   renderBooks();
 }
+
+/* Extra fitures */ 
 
 function onSetFilterBy(filterValue) {
   gFilterBy = filterValue;
@@ -126,34 +128,50 @@ function updateStats() {
   document.querySelector(".avg-count").innerText = avg;
   document.querySelector(".exp-count").innerText = exp;
 }
-function onOpenAddModal() {
+function onOpenEditModal() {
   document.querySelector(".add-book-modal").showModal();
 }
-function onCloseAddModal() {
-  document.querySelector('.add-book-modal').close();
+function onCloseEditModal() {
+   document.querySelector('.book-edit-modal').close();
+  renderBooks();
 }
 
-function onSubmitAddBook(ev) {
+function changeEditRating(diff) {
+  gCurrEditRating += diff;
+  if (gCurrEditRating < 0) gCurrEditRating = 0;
+  if (gCurrEditRating > 5) gCurrEditRating = 5;
+  document.querySelector('.edit-rating-display').innerText = gCurrEditRating;
+}
+function onSubmitBookForm(ev) {
   ev.preventDefault();
+  const elModal = document.querySelector('.book-edit-modal');
 
-  const elModal = document.querySelector(".add-book-modal");
   const title = elModal.querySelector('input[name="title"]').value.trim();
-  const priceStr = elModal.querySelector('input[name="price"]').value;
-  const price = +priceStr;
+  const price = +elModal.querySelector('input[name="price"]').value;
 
-  if (!title || !priceStr || isNaN(price) || price <= 0) {
-    alert("Please enter a valid title and price.");
+  if (!title || isNaN(price) || price <= 0) {
+    alert("Invalid input");
     return;
   }
 
-  const book = {
-    id: makeId(),
-    title,
-    price,
-  };
+  if (gEditMode) {
+    const book = getBookById(gCurrEditBookId);
+    book.title = title;
+    book.price = price;
+    book.rating = gCurrEditRating;
+    showUserMsg("Book updated!");
+  } else {
+    const book = {
+      id: makeId(),
+      title,
+      price,
+      rating: gCurrEditRating
+    };
+    addBook(book);
+    showUserMsg("Book added!");
+  }
 
-  addBook(book);
-  showUserMsg("Book added!");
-  renderBooks();
+  saveToStorage(STORAGE_KEY, gBooks);
   elModal.close();
+  renderBooks(); 
 }
