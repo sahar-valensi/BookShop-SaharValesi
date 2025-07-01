@@ -66,6 +66,32 @@
       </form>
     </dialog>
 
+    <dialog class="edit-book-modal">
+      <form method="dialog" onsubmit="onSubmitEditBook(event)">
+        <h2>Edit Book</h2>
+        <input type="text" name="title" placeholder="Book Title" required />
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          min="1"
+          required
+        />
+
+        <div class="rating-edit">
+          <label>Rating:</label>
+          <button type="button" onclick="changeEditRating(-1)">-</button>
+          <span class="edit-rating-display">0</span>
+          <button type="button" onclick="changeEditRating(1)">+</button>
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit">Save</button>
+          <button type="button" onclick="onCloseEditModal()">Cancel</button>
+        </div>
+      </form>
+    </dialog>
+
     <div class="user-msg hidden"></div>
 
     <footer>
