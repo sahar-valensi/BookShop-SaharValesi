@@ -3,6 +3,10 @@
 var gCurrEditBookId = null;
 var gCurrEditRating = 0;
 var gEditMode = false;
+var gFilterBy = {
+  title: '',
+  minRating: 0
+}
 
 function onInit() {
   renderBooks();
@@ -174,4 +178,23 @@ function onSubmitBookForm(ev) {
   saveToStorage(STORAGE_KEY, gBooks);
   elModal.close();
   renderBooks(); 
+}
+
+function onSetFilterBy(title) {
+  gFilterBy.title = title
+  renderBooks()
+}
+
+function onSetMinRating(minRating) {
+  gFilterBy.minRating = +minRating
+  renderBooks()
+}
+
+function onClearFilter() {
+  gFilterBy = { title: '', minRating: 0 }
+
+  document.querySelector('.filter-title').value = ''
+  document.querySelector('.filter-rating').value = '0'
+
+  renderBooks()
 }
