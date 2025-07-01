@@ -27,18 +27,22 @@ function renderBooks() {
   elTable.classList.remove("hidden");
   elMsg.classList.add("hidden");
 
-  const strHtmls = books.map(
-    (book) =>
-      `<tr>
+ const strHtmls = books.map((book) => {
+    const stars = getRatingStars(book.rating)
+
+    return `
+      <tr>
         <td>${book.title}</td>
         <td>${book.price}</td>
+        <td>${stars}</td>
         <td>
           <button class="action-btn details-btn" onclick="onShowDetails('${book.id}')">Details</button>
           <button class="action-btn update-btn" onclick="onUpdateBook('${book.id}')">Update</button>
           <button class="action-btn delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
         </td>
-      </tr>`
-  );
+      </tr>
+    `
+  })
 
   elTbody.innerHTML = strHtmls.join("");
   updateStats();
@@ -133,7 +137,7 @@ function updateStats() {
   document.querySelector(".exp-count").innerText = exp;
 }
 function onOpenEditModal() {
-  document.querySelector(".add-book-modal").showModal();
+  document.querySelector(".book-edit-modal").showModal();
 }
 function onCloseEditModal() {
    document.querySelector('.book-edit-modal').close();
@@ -188,6 +192,11 @@ function onSetFilterBy(title) {
 function onSetMinRating(minRating) {
   gFilterBy.minRating = +minRating
   renderBooks()
+}
+function getRatingStars(rating) {
+  const fullStar = '★'
+  const emptyStar = '☆'
+  return fullStar.repeat(rating) + emptyStar.repeat(5 - rating)
 }
 
 function onClearFilter() {

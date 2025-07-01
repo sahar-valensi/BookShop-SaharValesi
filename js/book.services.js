@@ -34,7 +34,7 @@ function getBookById(bookId) {
   return gBooks.find((book) => book.id === bookId);
 }
 function addBook(book) {
-  book.rating = 0;
+  // book.rating = 0;
   gBooks.unshift(book);
   saveToStorage(STORAGE_KEY, gBooks);
 }
