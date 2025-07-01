@@ -13,6 +13,7 @@ body {
   text-align: center;
   height: 100vh;
 }
+
 header {
   display: flex;
   align-content: center;
@@ -25,6 +26,7 @@ header {
   margin-block-end: 2rem;
   border-radius: 10px;
 }
+
 h1 {
   font-size: 1.5rem;
 }
@@ -34,19 +36,32 @@ h1 {
   gap: 0.5rem;
   align-items: center;
   margin-inline: auto;
+
+  width: min-content;
 }
 
 .filter-wrapper input {
   padding: 0.5rem;
   font-size: 1rem;
 }
-.clear-btn{
-    background-color: #e45a5a;
+
+.sort-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  max-width: 100%;
+}
+
+.clear-btn {
+  background-color: #e45a5a;
   font-size: 1rem;
   border-radius: 10%;
-  margin: 1rem;
+  margin: 0.2rem;
   cursor: pointer;
 }
+
 table {
   flex-grow: 1;
 
@@ -86,7 +101,7 @@ td {
 
 .btn-group {
   display: flex;
-  gap: 1rem;
+  gap: 5px;
   align-items: center;
 }
 
@@ -94,7 +109,7 @@ td {
   background-color: #e45a5a;
   font-size: 1rem;
   border-radius: 10%;
-  margin: 1rem;
+  margin: 0.2rem;
   cursor: pointer;
 }
 

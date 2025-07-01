@@ -7,6 +7,10 @@ var gFilterBy = {
   title: '',
   minRating: 0
 }
+var gSortBy = {
+  field: '',
+  dir: 1         // 1 = ascending, -1 = descending
+}
 
 function onInit() {
   renderBooks();
@@ -205,5 +209,15 @@ function onClearFilter() {
   document.querySelector('.filter-title').value = ''
   document.querySelector('.filter-rating').value = '0'
 
+  renderBooks()
+}
+
+function onSetSortField(field) {
+  gSortBy.field = field
+  renderBooks()
+}
+
+function onSetSortDir(dir) {
+  gSortBy.dir = +dir
   renderBooks()
 }
