@@ -6,19 +6,16 @@ var gBooks = _createBooks();
 
 function getBooks() {
   var books = gBooks;
-
   //sort by title
   if (gFilterBy.title) {
     books = books.filter((book) =>
       book.title.toLowerCase().includes(gFilterBy.title.toLowerCase())
     );
   }
-
   //sort by rating
   if (gFilterBy.minRating > 0) {
     books = books.filter((book) => book.rating >= gFilterBy.minRating);
   }
-
   //sort by diraction
   if (gSortBy.field === "title") {
     books.sort((a, b) => a.title.localeCompare(b.title) * gSortBy.dir);
@@ -27,6 +24,9 @@ function getBooks() {
   } else if (gSortBy.field === "rating") {
     books.sort((a, b) => (a.rating - b.rating) * gSortBy.dir);
   }
+  //paging
+  const startIdx = gPage.idx * gPage.size;
+  books = books.slice(startIdx, startIdx + gPage.size);
 
   return books;
 }
@@ -77,4 +77,20 @@ function _createBooks() {
   console.log("books:", books);
   saveToStorage(STORAGE_KEY, demoBooks);
   return demoBooks;
+}
+
+function getBooksCount() {
+  let books = gBooks;
+
+  if (gFilterBy.title) {
+    books = books.filter((book) =>
+      book.title.toLowerCase().includes(gFilterBy.title.toLowerCase())
+    );
+  }
+
+  if (gFilterBy.minRating > 0) {
+    books = books.filter((book) => book.rating >= gFilterBy.minRating);
+  }
+
+  return books.length;
 }

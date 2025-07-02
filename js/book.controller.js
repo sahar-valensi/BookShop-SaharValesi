@@ -11,6 +11,11 @@ var gSortBy = {
   field: '',
   dir: 1         // 1 = ascending, -1 = descending
 }
+const gPage = {
+  idx: 0,
+  size: 3
+}
+
 
 function onInit() {
   renderBooks();
@@ -21,6 +26,7 @@ function renderBooks() {
   const elTbody = document.querySelector(".book-table-body");
   const elTable = document.querySelector("table");
   const elMsg = document.querySelector(".no-books-msg");
+  
 
   if (!books.length) {
     elTable.classList.add("hidden");
@@ -50,6 +56,8 @@ function renderBooks() {
 
   elTbody.innerHTML = strHtmls.join("");
   updateStats();
+
+  document.querySelector('.page-num').innerText = `Page ${gPage.idx + 1}`
 }
 
 function onRemoveBook(bookId) {
@@ -219,5 +227,16 @@ function onSetSortField(field) {
 
 function onSetSortDir(dir) {
   gSortBy.dir = +dir
+  renderBooks()
+}
+/*pagination */
+function onChangePage(diff) {
+  const totalPages = Math.ceil(getBooksCount() / gPage.size)
+
+  gPage.idx += diff
+
+  if (gPage.idx < 0) gPage.idx = totalPages - 1
+  else if (gPage.idx >= totalPages) gPage.idx = 0
+
   renderBooks()
 }

@@ -18,12 +18,12 @@ header {
   display: flex;
   align-content: center;
   justify-content: space-between;
-  width: 100%;
+  width: 95%;
   height: 15vh;
 
   background-color: #659aa0;
   padding: 1rem;
-  margin-block-end: 2rem;
+  margin-block-end: 1rem;
   border-radius: 10px;
 }
 
@@ -50,8 +50,8 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  max-width: 100%;
+  gap: 0.5rem;
+  max-width: 80%;
 }
 
 .clear-btn {
@@ -65,7 +65,7 @@ h1 {
 table {
   flex-grow: 1;
 
-  width: 100%;
+  width: 95%;
   margin-block-end: 1rem;
   background-color: #a8dbb2;
   border: 1px solid black;
@@ -115,6 +115,14 @@ td {
 
 .hidden {
   display: none;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .no-books-msg {
