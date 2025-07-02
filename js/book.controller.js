@@ -4,20 +4,20 @@ var gCurrEditBookId = null;
 var gCurrEditRating = 0;
 var gEditMode = false;
 var gFilterBy = {
-  title: '',
-  minRating: 0
-}
+  title: "",
+  minRating: 0,
+};
 var gSortBy = {
-  field: '',
-  dir: 1         // 1 = ascending, -1 = descending
-}
+  field: "",
+  dir: 1, // 1 = ascending, -1 = descending
+};
 const gPage = {
   idx: 0,
-  size: 3
-}
-
+  size: 3,
+};
 
 function onInit() {
+  readQueryParams();
   renderBooks();
 }
 
@@ -26,7 +26,6 @@ function renderBooks() {
   const elTbody = document.querySelector(".book-table-body");
   const elTable = document.querySelector("table");
   const elMsg = document.querySelector(".no-books-msg");
-  
 
   if (!books.length) {
     elTable.classList.add("hidden");
@@ -37,8 +36,8 @@ function renderBooks() {
   elTable.classList.remove("hidden");
   elMsg.classList.add("hidden");
 
- const strHtmls = books.map((book) => {
-    const stars = getRatingStars(book.rating)
+  const strHtmls = books.map((book) => {
+    const stars = getRatingStars(book.rating);
 
     return `
       <tr>
@@ -51,13 +50,22 @@ function renderBooks() {
           <button class="action-btn delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
         </td>
       </tr>
-    `
-  })
+    `;
+  });
 
   elTbody.innerHTML = strHtmls.join("");
   updateStats();
 
-  document.querySelector('.page-num').innerText = `Page ${gPage.idx + 1}`
+  document.querySelector(".page-num").innerText = `Page ${gPage.idx + 1}`;
+
+  document.querySelector(".filter-title").value = gFilterBy.title;
+  document.querySelector(".filter-rating").value = gFilterBy.minRating;
+  document.querySelector(".sort-field").value = gSortBy.field;
+  document.querySelector(
+    `input[name="sort-dir"][value="${gSortBy.dir}"]`
+  ).checked = true;
+
+  setQueryParams();
 }
 
 function onRemoveBook(bookId) {
@@ -72,11 +80,11 @@ function onUpdateBook(bookId) {
   gCurrEditBookId = bookId;
   gCurrEditRating = book.rating;
 
-  const elModal = document.querySelector('.book-edit-modal');
-  elModal.querySelector('.modal-title').innerText = 'Edit Book';
+  const elModal = document.querySelector(".book-edit-modal");
+  elModal.querySelector(".modal-title").innerText = "Edit Book";
   elModal.querySelector('input[name="title"]').value = book.title;
   elModal.querySelector('input[name="price"]').value = book.price;
-  elModal.querySelector('.edit-rating-display').innerText = gCurrEditRating;
+  elModal.querySelector(".edit-rating-display").innerText = gCurrEditRating;
 
   elModal.showModal();
   renderBooks();
@@ -91,6 +99,10 @@ function onShowDetails(bookId) {
      Price: ${book.price} `;
 
   elModal.showModal();
+  const queryParams = new URLSearchParams(window.location.search);
+  queryParams.set("bookId", bookId);
+  const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+  window.history.pushState({}, "", newUrl);
   //   renderBooks();
 }
 
@@ -99,17 +111,17 @@ function onAddBook() {
   gCurrEditBookId = null;
   gCurrEditRating = 0;
 
-  const elModal = document.querySelector('.book-edit-modal');
-  elModal.querySelector('.modal-title').innerText = 'Add New Book';
-  elModal.querySelector('input[name="title"]').value = '';
-  elModal.querySelector('input[name="price"]').value = '';
-  elModal.querySelector('.edit-rating-display').innerText = gCurrEditRating;
+  const elModal = document.querySelector(".book-edit-modal");
+  elModal.querySelector(".modal-title").innerText = "Add New Book";
+  elModal.querySelector('input[name="title"]').value = "";
+  elModal.querySelector('input[name="price"]').value = "";
+  elModal.querySelector(".edit-rating-display").innerText = gCurrEditRating;
 
   elModal.showModal();
   renderBooks();
 }
 
-/* Extra fitures */ 
+/* Extra fitures */
 
 function onSetFilterBy(filterValue) {
   gFilterBy = filterValue;
@@ -152,7 +164,12 @@ function onOpenEditModal() {
   document.querySelector(".book-edit-modal").showModal();
 }
 function onCloseEditModal() {
-   document.querySelector('.book-edit-modal').close();
+  document.querySelector(".book-edit-modal").close();
+  const queryParams = new URLSearchParams(window.location.search);
+  queryParams.delete("bookId");
+  const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+  window.history.pushState({}, "", newUrl);
+
   renderBooks();
 }
 
@@ -160,11 +177,11 @@ function changeEditRating(diff) {
   gCurrEditRating += diff;
   if (gCurrEditRating < 0) gCurrEditRating = 0;
   if (gCurrEditRating > 5) gCurrEditRating = 5;
-  document.querySelector('.edit-rating-display').innerText = gCurrEditRating;
+  document.querySelector(".edit-rating-display").innerText = gCurrEditRating;
 }
 function onSubmitBookForm(ev) {
   ev.preventDefault();
-  const elModal = document.querySelector('.book-edit-modal');
+  const elModal = document.querySelector(".book-edit-modal");
 
   const title = elModal.querySelector('input[name="title"]').value.trim();
   const price = +elModal.querySelector('input[name="price"]').value;
@@ -185,7 +202,7 @@ function onSubmitBookForm(ev) {
       id: makeId(),
       title,
       price,
-      rating: gCurrEditRating
+      rating: gCurrEditRating,
     };
     addBook(book);
     showUserMsg("Book added!");
@@ -193,50 +210,91 @@ function onSubmitBookForm(ev) {
 
   saveToStorage(STORAGE_KEY, gBooks);
   elModal.close();
-  renderBooks(); 
+  renderBooks();
 }
 
 function onSetFilterBy(title) {
-  gFilterBy.title = title
-  renderBooks()
+  gFilterBy.title = title;
+  renderBooks();
 }
 
 function onSetMinRating(minRating) {
-  gFilterBy.minRating = +minRating
-  renderBooks()
+  gFilterBy.minRating = +minRating;
+  renderBooks();
 }
 function getRatingStars(rating) {
-  const fullStar = '★'
-  const emptyStar = '☆'
-  return fullStar.repeat(rating) + emptyStar.repeat(5 - rating)
+  const fullStar = "★";
+  const emptyStar = "☆";
+  return fullStar.repeat(rating) + emptyStar.repeat(5 - rating);
 }
 
 function onClearFilter() {
-  gFilterBy = { title: '', minRating: 0 }
+  gFilterBy = { title: "", minRating: 0 };
 
-  document.querySelector('.filter-title').value = ''
-  document.querySelector('.filter-rating').value = '0'
+  document.querySelector(".filter-title").value = "";
+  document.querySelector(".filter-rating").value = "0";
 
-  renderBooks()
+  renderBooks();
 }
 
 function onSetSortField(field) {
-  gSortBy.field = field
-  renderBooks()
+  gSortBy.field = field;
+  renderBooks();
 }
 
 function onSetSortDir(dir) {
-  gSortBy.dir = +dir
-  renderBooks()
+  gSortBy.dir = +dir;
+  renderBooks();
 }
 /*pagination */
 function onChangePage(diff) {
-  const totalPages = Math.ceil(getBooksCount() / gPage.size)
+  const totalPages = Math.ceil(getBooksCount() / gPage.size);
 
-  gPage.idx += diff
+  gPage.idx += diff;
 
-  if (gPage.idx < 0) gPage.idx = totalPages - 1
-  else if (gPage.idx >= totalPages) gPage.idx = 0
+  if (gPage.idx < 0) gPage.idx = totalPages - 1;
+  else if (gPage.idx >= totalPages) gPage.idx = 0;
 
-  renderBooks()
+  renderBooks();
+}
+/*query params */
+function setQueryParams() {
+  const queryParams = new URLSearchParams();
+
+  queryParams.set("title", gFilterBy.title);
+  queryParams.set("minRating", gFilterBy.minRating);
+  queryParams.set("sortField", gSortBy.field);
+  queryParams.set("sortDir", gSortBy.dir);
+  queryParams.set("pageIdx", gPage.idx);
+
+  const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+  window.history.pushState({}, "", newUrl);
+}
+
+function readQueryParams() {
+  const queryParams = new URLSearchParams(window.location.search);
+
+  gFilterBy.title = queryParams.get("title") || "";
+  gFilterBy.minRating = +queryParams.get("minRating") || 0;
+  gSortBy.field = queryParams.get("sortField") || "";
+  gSortBy.dir = +queryParams.get("sortDir") || 1;
+  gPage.idx = +queryParams.get("pageIdx") || 0;
+
+  const bookId = queryParams.get("bookId");
+  if (bookId) onShowDetails(bookId);
+}
+
+
+function onCloseAndEdit() {
+  const bookId = new URLSearchParams(window.location.search).get('bookId')
+  if (!bookId) return
+
+  document.querySelector('.book-details-modal').close()
+
+  const queryParams = new URLSearchParams(window.location.search)
+  queryParams.delete('bookId')
+  const newUrl = `${window.location.pathname}?${queryParams.toString()}`
+  window.history.pushState({}, '', newUrl)
+
+  onUpdateBook(bookId)
 }
